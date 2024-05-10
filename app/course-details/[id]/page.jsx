@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -213,7 +213,10 @@ const CourseDetails = ({ params }) => {
                   <>
                     <div>
                       {courseChapters?.map((chapter, i) => (
-                        <div className="border-[--border] border-[1px] rounded-md pl-4 flex items-center py-4 justify-between mb-3">
+                        <div
+                          key={i}
+                          className="border-[--border] border-[1px] rounded-md pl-4 flex items-center py-4 justify-between mb-3"
+                        >
                           Chapter {i + 1}: {chapter.chapterName}
                         </div>
                       ))}
