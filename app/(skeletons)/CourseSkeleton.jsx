@@ -9,7 +9,7 @@ const CourseSkeleton = () => {
         <div className="w-full h-[60vh] relative overflow-hidden rounded-md mb-4">
           <Skeleton className="h-[100%] w-[100%] rounded-xl" />
         </div>
-        <Card className="border-[1px] border-[--border] shadow-none overflow-hidden rounded-lg">
+        <Card className="border-[1px] border-[--border ] shadow-none overflow-hidden rounded-lg">
           <CardHeader>
             <>
               <Skeleton className="h-[15px] w-[150px] rounded-xl" />
@@ -25,7 +25,7 @@ const CourseSkeleton = () => {
         </Card>
       </div>
       <div className="w-[40%]">
-        <Card className="border-[1px] border-[--border] shadow-none overflow-hidden rounded-lg bg-gray-800 text-white">
+        <Card className="border-[1px] border-[--border ] shadow-none overflow-hidden rounded-lg bg-gray-800 text-white">
           <CardHeader>
             <>
               <Skeleton className="h-[20px] w-[70%] bg-white rounded-md" />

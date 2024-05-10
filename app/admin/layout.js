@@ -1,13 +1,13 @@
 import React from "react";
-import AdminHeader from "./(components)/AdminHeader";
 import AdminSidebar from "./(components)/AdminSidebar";
+import Header from "../(client-page)/(components)/Header";
 
 const layout = ({ children }) => {
   return (
     <div>
-      <AdminHeader />
+      <Header />
       <AdminSidebar />
-      <div>{children}</div>
+      <div className="lg:pl-[18%]">{children}</div>
     </div>
   );
 };

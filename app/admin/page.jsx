@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import AnalyticsPage from "../teacher/(routes)/analytics/page";
 
 const AdminPage = () => {
   return (
-    <div>AdminPage</div>
-  )
-}
+    <div>
+      <AnalyticsPage />
+    </div>
+  );
+};
 
-export default AdminPage
+export default AdminPage;

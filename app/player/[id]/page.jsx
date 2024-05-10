@@ -16,8 +16,6 @@ const CoursePlayer = ({ params }) => {
   const [chapterIndex, setChapterIndex] = useState(0);
   const watchVideo = course?.chapters[chapterIndex];
 
-
-
   return (
     <div>
       <PlayerSidebar

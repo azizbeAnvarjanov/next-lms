@@ -33,16 +33,21 @@ const Header = () => {
     <div>
       <div className="h-[10vh] w-full navbar flex items-center justify-end py-2 px-4 lg:px-10 border-b-[1px] border-[--border ] bg-white lg:pl-[19%]">
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => navigate.push("/admin")}>
-            Admin
-          </Button>
-          <Button variant="outline" onClick={() => navigate.push("/teacher")}>
-            Teacher mode
-          </Button>
           {user && (
-            <Button onClick={logOut} variant="outline">
-              <LogIn size={14} className="mr-1" /> logout
-            </Button>
+            <>
+              <Button onClick={logOut} variant="outline">
+                <LogIn size={14} className="mr-1" /> logout
+              </Button>
+              <Button variant="outline" onClick={() => navigate.push("/admin")}>
+                Admin
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate.push("/teacher")}
+              >
+                Teacher mode
+              </Button>
+            </>
           )}
           {userloading ? (
             <>
@@ -86,38 +91,10 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                 <DropdownMenu className="z-50 drop">
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="overflow-hidden rounded-full relative"
-                      >
-                        <Image
-                          src={
-                            photoUrl !== null ? photoUrl : "/placeholder.svg"
-                          }
-                          fill
-                          alt="Avatar"
-                          className="overflow-hidden rounded-full object-cover"
-                        />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        onClick={() => navigate.push("/profile")}
-                        className="cursor-pointer"
-                      >
-                        My Profile
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>Support</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>Logout</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  <Button onClick={() => navigate.push("/login")} variant="outline">
+                  <Button
+                    onClick={() => navigate.push("/login")}
+                    variant="outline"
+                  >
                     Login
                   </Button>
                   <Button onClick={() => navigate.push("/register")}>

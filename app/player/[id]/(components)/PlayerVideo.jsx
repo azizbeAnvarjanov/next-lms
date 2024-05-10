@@ -32,11 +32,11 @@ const PlayerVideo = ({ watchVideo }) => {
 
   return (
     <div className=" overflow-y-scroll">
-      <div className="w-full h-[100vh] bg-red-300 relative">
+      <div className="w-full h-[100vh] bg-black relative">
         {videoId && <YouTube videoId={videoId} opts={opts} />}
       </div>
       <div className="p-5 space-y-6 w-[80%] mx-auto">
-        <Card className="border-[1px] px-5 border-[--border] shadow-none">
+        <Card className="border-[1px] px-5 border-[--border ] shadow-none">
           <div className="flex p-5 items-center justify-between">
             <h1 className="text-2xl font-medium">Courses Page</h1>
             <Button

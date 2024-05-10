@@ -1,13 +1,13 @@
 import React from "react";
-import TeacherHeader from "./(components)/TeacherHeader";
 import TeacherSidebar from "./(components)/TeacherSidebar";
+import Header from "../(client-page)/(components)/Header";
 
 const layout = ({ children }) => {
   return (
     <div>
-      <TeacherHeader />
+      <Header />
       <TeacherSidebar />
-      <div>{children}</div>
+      <div className="lg:pl-[18%]">{children}</div>
     </div>
   );
 };

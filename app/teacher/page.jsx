@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import AllCoursesTable from "./(components)/AllCoursesTable";
 
 const Teacher = () => {
   return (
-    <div>Teacher</div>
-  )
-}
+    <div>
+      <AllCoursesTable />
+    </div>
+  );
+};
 
-export default Teacher
+export default Teacher;

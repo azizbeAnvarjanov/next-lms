@@ -70,7 +70,7 @@ const Course = ({ params }) => {
               </p>
               {user ? (
                 <Button
-                  onClick={() => navigate(`/player/${courseId.id}`)}
+                  onClick={() => navigate.push(`/player/${courseId}`)}
                   variant="outline"
                   className="w-full text-black"
                 >

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import AllCoursesSkeleton from "@/app/(skeletons)/AllCoursesSkeleton";
 import { db } from "@/app/firebaseConfig";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-
 
 const AllCourses = () => {
   const [courses, loadin, error] = useCollectionData(collection(db, "courses"));

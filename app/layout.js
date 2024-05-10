@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Create Next App",
@@ -23,6 +24,8 @@ export default function RootLayout({ children }) {
           fontSans.variable
         )}
       >
+        <Toaster />
+
         {children}
       </body>
     </html>
