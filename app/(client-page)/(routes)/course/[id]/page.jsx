@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { doc } from "firebase/firestore";
 import { BookOpen, CirclePlay } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -24,8 +25,8 @@ const Course = ({ params }) => {
   return (
     <div className="p-5 flex gap-5">
       <div className=" w-[60%]">
-        <div className="w-full h-[60vh] relative overflow-hidden rounded-md mb-4">
-          <img
+        <div className="w-full h-[60vh] relative overflow-hidden rounded-md mb-4 relative">
+          <Image
             src={course?.banner}
             className="w-full h-full object-cover"
             alt=""

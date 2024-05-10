@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import SideLinks from "./SideLinks";
 import SideBottomDropdown from "./SideBottomDropdown";
+import Image from "next/image";
 
 const SideBar = () => {
 
@@ -10,7 +11,7 @@ const SideBar = () => {
       <div className="hidden lg:flex flex-col w-[18%] bg-white p-3 border-r-[1px] border-[--border ] h-screen fixed left-0 top-0 text-[--text]">
         <div className="w-full h-[10vh] flex items-center px-2">
           <Link href="/">
-            <img width={150} height={100} src="/logo.svg" alt="" />
+            <Image width={150} height={100} src="/logo.svg" alt="" />
           </Link>
         </div>
         <SideLinks />

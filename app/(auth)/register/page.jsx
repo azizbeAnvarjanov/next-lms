@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { auth, provider } from "@/app/firebaseConfig";
+import Image from "next/image";
 
 const Register = () => {
   const [inputFileds, setInputFileds] = useState([]);
@@ -49,7 +50,7 @@ const Register = () => {
     <div className="h-screen flex items-center justify-center">
       <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto py-6">
         <div className="hidden md:flex items-center justify-center">
-          <img
+          <Image
             alt="Banner Image"
             className="aspect-[5/6] object-cover rounded-lg"
             height={600}

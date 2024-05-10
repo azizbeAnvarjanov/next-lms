@@ -96,7 +96,7 @@ const Login = () => {
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
             <div className="text-center text-sm text-gray-500 dark:text-gray-400">
-              Don't have an account?
+              Dont have an account?
               <Link
                 className="font-medium ml-2 text-gray-900 underline transition-colors hover:text-gray-700 dark:text-gray-50 dark:hover:text-gray-300"
                 href="/register"
