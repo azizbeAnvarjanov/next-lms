@@ -8,7 +8,7 @@ const NotDataBlock = () => {
       <div className="text-center">
         <h2 className="text-xl font-semibold">Courses not found</h2>
         <p className="text-sm text-gray-500">
-          You haven't signed up for any course yet
+          You haven&apos;t signed up for any course yet
         </p>
       </div>
     </div>
