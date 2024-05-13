@@ -23,6 +23,7 @@ const Header = () => {
   const [user, userloading] = useAuthState(auth);
   const photoUrl = user?.photoURL;
 
+
   const logOut = async () => {
     await signOut().then(() => {
       toast.success("User logouted !");

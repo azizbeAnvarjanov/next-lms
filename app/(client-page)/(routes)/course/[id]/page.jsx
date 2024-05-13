@@ -1,23 +1,44 @@
-"use client"
+"use client";
 import LoginModal from "@/app/(client-page)/(components)/LoginModal";
 import CourseSkeleton from "@/app/(skeletons)/CourseSkeleton";
 import { auth, db } from "@/app/firebaseConfig";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
-import { doc } from "firebase/firestore";
-import { BookOpen, CirclePlay } from "lucide-react";
+import { doc, updateDoc } from "firebase/firestore";
+import {
+  BookOpen,
+  CirclePlay,
+  Subscript,
+  SubscriptIcon,
+  UserRound,
+} from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { toast } from "react-hot-toast";
 
 const Course = ({ params }) => {
   const courseId = params.id;
   const navigate = useRouter();
   const [user] = useAuthState(auth);
+  const userUid = user?.uid;
 
   const [course, loading] = useDocumentData(doc(db, "courses", courseId));
+  const subscribes = course?.subscribers;
+  console.log(subscribes);
+
+  const subscribeFn = async () => {
+    if (subscribes?.includes(user?.uid)) {
+      return;
+    }
+    await updateDoc(doc(db, "courses", courseId), {
+      subscribers: [...subscribes, userUid],
+    }).then(() => {
+      toast.success("Obuna bo'ldingiz !");
+    });
+  };
 
   if (loading) {
     return <CourseSkeleton />;
@@ -30,15 +51,23 @@ const Course = ({ params }) => {
             src={course?.banner}
             className="w-full h-full object-cover"
             alt=""
+            fill
           />
         </div>
         <Card className="border-[1px] border-[--border ] shadow-none overflow-hidden rounded-lg">
           <CardHeader>
-            <p className="py-1 px-3 bg-[#e6f6fd] text-[12px] rounded-md text-[#075985] font-[600] flex items-center w-[150px]">
-              {" "}
-              <BookOpen size={15} className="mr-1" /> {course?.chapters?.length}{" "}
-              chapters
-            </p>
+            <div className="flex gap-2">
+              <p className="py-1 px-3 bg-[#e6f6fd] text-[12px] rounded-md text-[#075985] font-[600] flex items-center w-[150px]">
+                {" "}
+                <BookOpen size={15} className="mr-1" />{" "}
+                {course?.chapters?.length} chapters
+              </p>
+              <p className="py-1 px-3 bg-[#e6f6fd] text-[12px] rounded-md text-[#075985] font-[600] flex items-center w-[150px]">
+                {" "}
+                <UserRound size={15} className="mr-1" />{" "}
+                {course?.subscribers?.length} Subscribes
+              </p>
+            </div>
             <div>
               <h1 className="text-2xl font-[600] my-2">{course?.courseName}</h1>
               <p className="text-sm text-gray-600 my-3">
@@ -70,13 +99,25 @@ const Course = ({ params }) => {
                 speed, and more.
               </p>
               {user ? (
-                <Button
-                  onClick={() => navigate.push(`/player/${courseId}`)}
-                  variant="outline"
-                  className="w-full text-black"
-                >
-                  <CirclePlay size={18} className="mr-2" /> Start watching
-                </Button>
+                <>
+                  {subscribes?.includes(user?.uid) ? (
+                    <Button
+                      onClick={() => navigate.push(`/player/${courseId}`)}
+                      variant="outline"
+                      className="w-full text-black"
+                    >
+                      <CirclePlay size={18} className="mr-2" /> Start watching
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => subscribeFn(courseId)}
+                      variant="outline"
+                      className="w-full text-black"
+                    >
+                      Subscribe
+                    </Button>
+                  )}
+                </>
               ) : (
                 <LoginModal />
               )}

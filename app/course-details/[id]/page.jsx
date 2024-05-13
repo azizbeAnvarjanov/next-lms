@@ -56,7 +56,7 @@ const CourseDetails = ({ params }) => {
   };
 
   const uploadBanner = async (file) => {
-    const path = "course_banners/" + file.name + "-banner";
+    const path = "course_banners/" + courseId + "-banner";
     const storageRef = ref(storage, path);
     await uploadBytes(storageRef, file);
     await getDownloadURL(ref(storage, path)).then((url) => {
@@ -215,7 +215,7 @@ const CourseDetails = ({ params }) => {
                       {courseChapters?.map((chapter, i) => (
                         <div
                           key={i}
-                          className="border-[--border] border-[1px] rounded-md pl-4 flex items-center py-4 justify-between mb-3"
+                          className="border-[--border ] border-[1px] rounded-md pl-4 flex items-center py-4 justify-between mb-3"
                         >
                           Chapter {i + 1}: {chapter.chapterName}
                         </div>
@@ -232,7 +232,7 @@ const CourseDetails = ({ params }) => {
                 </CardHeader>
                 <CardContent>
                   <Select
-                    defaultValue={courseStatus}
+                    value={courseStatus}
                     onValueChange={(e) => changeStatus(e)}
                   >
                     <SelectTrigger className="w-[180px]">

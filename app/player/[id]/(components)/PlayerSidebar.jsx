@@ -18,14 +18,14 @@ const PlayerSidebar = ({
   };
 
   return (
-    <div className="fixed left-0 bg-white border-r-[1px] border-r-[--border ] w-[23%] h-full">
+    <div className="fixed left-0 bg-white h-full border-r-[1px] border-r-[--border ] w-[23%]">
       <div className="h-[10vh] flex justify-center items-center space-y-2 w-full border-b-[1px] border-b-[--border ]">
         <Link href="/">
           <img src="/logo.svg" width={150} alt="" />
         </Link>
       </div>
       <div>
-        <div className="overflow-y-scroll h-[80vh] flex flex-col">
+        <div className="overflow-y-scroll h-[90vh] flex flex-col">
           {loading ? (
             <PlauerSodebarSkeleton />
           ) : (
@@ -35,7 +35,7 @@ const PlayerSidebar = ({
                   key={i}
                   onClick={() => handel(i)}
                   variant="outline"
-                  className={`rounded-none w-full flex items-center justify-start py-7 border-[1px] border-t-0 border-x-0 text-[--text] font-[400] gap-2 items-center ${
+                  className={`rounded-none w-full text-wrap flex text-left justify-start py-7 border-[1px] border-t-0 border-x-0 text-[--text] font-[400] gap-2 items-center ${
                     isActive === i ? "bg-green-200 text-green-500" : ""
                   }`}
                 >

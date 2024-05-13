@@ -4,7 +4,7 @@ import { db } from "@/app/firebaseConfig";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { collection } from "firebase/firestore";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Heart, HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -19,21 +19,26 @@ const AllCourses = () => {
     return <AllCoursesSkeleton />;
   }
 
+  
+
   return (
     <div className="grid grid-cols-4 gap-4 scroll-ms p-5">
       {activeCourses?.map((course, i) => (
-        <div key={course.id}>
-          <Card className="border-[1px] border-[--border ] shadow-none overflow-hidden rounded-lg">
-            <Link href={`/course/${course.id}`}>
-              <div className="w-full h-[22vh] relative">
+        <div key={course.id} className="min-h-[40vh]">
+          <Card className="border-[1px] border-[--border ] shadow-none overflow-hidden rounded-lg h-full">
+            <div className="w-full h-[22vh] relative">
+              <Link href={`/course/${course.id}`}>
                 <Image
                   className="object-cover w-full h-full"
                   src={course.banner}
                   alt="5"
                   fill
                 />
+              </Link>
+              <div className="w-[30px] h-[30px] bg-white bg-opacity-15 absolute top-2 left-2 rounded-sm flex justify-center items-center z-50 hover:bg-opacity-30 cursor-pointer">
+                <HeartIcon className="text-white" size={18} />
               </div>
-            </Link>
+            </div>
             <CardContent className="p-4">
               <CardTitle className="font-[600] text-[1.2em]">
                 <Link href={`/course/${course.id}`} className="capitalize">

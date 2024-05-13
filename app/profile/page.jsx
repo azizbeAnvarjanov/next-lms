@@ -43,7 +43,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-[50%] mx-auto">
+    <div className="w-[60%] mx-auto">
       <div className="container mx-auto py-12 px-4">
         <div className="py-2">
           <Button
@@ -54,7 +54,7 @@ const Profile = () => {
             <ChevronLeft />
           </Button>
         </div>
-        <div className="grid gap-8 lg:grid-cols-[1fr_280px]">
+        <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <Card>
               <CardHeader>
@@ -140,7 +140,7 @@ const Profile = () => {
                     />
                     <AvatarFallback>JP</AvatarFallback>
                   </Avatar>
-                  <div className="grid gap-0.5 text-sm">
+                  <div className="grid gap-0.5 text-sm p-2">
                     <div className="font-medium">{user?.displayName}</div>
                     <div className="text-gray-500 dark:text-gray-400">
                       {user?.email}

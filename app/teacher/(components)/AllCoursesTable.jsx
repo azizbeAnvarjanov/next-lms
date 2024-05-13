@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 
 import { Input } from "@/components/ui/input";
@@ -26,15 +26,34 @@ import { Badge } from "@/components/ui/badge";
 import { CircleCheck, EllipsisVertical, ListFilter, Plus } from "lucide-react";
 import AddCourseModal from "./AddCourseModal";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { collection } from "firebase/firestore";
+import { collection, deleteField, updateDoc } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
-import { db } from "@/app/firebaseConfig";
+import { db, storage } from "@/app/firebaseConfig";
 import { useRouter } from "next/navigation";
+import { deleteObject, ref } from "firebase/storage";
+import { toast } from "react-hot-toast";
+import { doc, deleteDoc } from "firebase/firestore";
 
 const AllCoursesTable = () => {
   const [allCourses, loadin, error] = useCollectionData(
     collection(db, "courses")
   );
+
+  const deleteDocF = async (course) => {
+    const path = "course_banners/" + course.id + "-banner";
+    const desertRef = ref(storage, path);
+    deleteObject(desertRef).then(() => {});
+    await deleteDoc(doc(db, "courses", course.id));
+    toast.success(`Course deleted !`);
+  };
+ 
+  const changeStatus = async (course, value) => {
+    await updateDoc(doc(db, "courses", course.id), {
+      status: value,
+    }).then(() => {
+      toast.success("Status updated !");
+    });
+  }
 
   const naviagte = useRouter();
   const tables = [{}, {}, {}, {}, {}, {}, {}];
@@ -151,10 +170,13 @@ const AllCoursesTable = () => {
                             >
                               Edit
                             </DropdownMenuItem>
-                            <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                            <DropdownMenuItem>Archive</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => changeStatus(course, "published")} >Publish</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => changeStatus(course, "draft")} >Draft</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="text-red-600">
+                            <DropdownMenuItem
+                              onClick={() => deleteDocF(course)}
+                              className="text-red-600"
+                            >
                               Delete
                             </DropdownMenuItem>
                           </DropdownMenuContent>
