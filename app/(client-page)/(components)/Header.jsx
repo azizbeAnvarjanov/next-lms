@@ -67,7 +67,7 @@ const Header = () => {
                       >
                         <Image
                           src={
-                            photoUrl !== null ? photoUrl : "/placeholder.svg"
+                            photoUrl !== null || undefined ? photoUrl : "/placeholder.svg"
                           }
                           fill
                           alt="Avatar"

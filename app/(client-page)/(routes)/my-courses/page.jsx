@@ -10,6 +10,7 @@ import Link from "next/link";
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import NotDataBlock from "../../(components)/NotDataBlock";
+import SavedBtn from "../../(components)/SavedBtn";
 
 const MyCourses = () => {
   const [courses, loadin] = useCollectionData(collection(db, "courses"));
@@ -41,9 +42,7 @@ const MyCourses = () => {
                   fill
                 />
               </Link>
-              <div className="w-[30px] h-[30px] bg-white bg-opacity-15 absolute top-2 left-2 rounded-sm flex justify-center items-center z-50 hover:bg-opacity-30 cursor-pointer">
-                <HeartIcon className="text-white" size={18} />
-              </div>
+              <SavedBtn courseId={course.id} />
             </div>
             <CardContent className="p-4">
               <CardTitle className="font-[600] text-[1.2em]">

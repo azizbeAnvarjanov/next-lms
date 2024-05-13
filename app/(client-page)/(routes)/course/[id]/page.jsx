@@ -5,39 +5,33 @@ import { auth, db } from "@/app/firebaseConfig";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { doc, updateDoc } from "firebase/firestore";
-import {
-  BookOpen,
-  CirclePlay,
-  Subscript,
-  SubscriptIcon,
-  UserRound,
-} from "lucide-react";
+import { BookOpen, CirclePlay, UserRound } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { toast } from "react-hot-toast";
 
 const Course = ({ params }) => {
   const courseId = params.id;
   const navigate = useRouter();
   const [user] = useAuthState(auth);
-  const userUid = user?.uid;
+  const userUid = auth?.currentUser?.uid;
 
   const [course, loading] = useDocumentData(doc(db, "courses", courseId));
-  const subscribes = course?.subscribers;
-  console.log(subscribes);
+  const subscribers = course?.subscribers;
 
   const subscribeFn = async () => {
-    if (subscribes?.includes(user?.uid)) {
-      return;
+    if (subscribers?.includes(userUid)) {
+      const newData = subscribers?.filter((subs) => subs !== userUid);
+      await updateDoc(doc(db, "courses", courseId), {
+        subscribers: newData,
+      });
+    } else {
+      await updateDoc(doc(db, "courses", courseId), {
+        subscribers: [...subscribers, userUid],
+      });
     }
-    await updateDoc(doc(db, "courses", courseId), {
-      subscribers: [...subscribes, userUid],
-    }).then(() => {
-      toast.success("Obuna bo'ldingiz !");
-    });
   };
 
   if (loading) {
@@ -99,8 +93,8 @@ const Course = ({ params }) => {
                 speed, and more.
               </p>
               {user ? (
-                <>
-                  {subscribes?.includes(user?.uid) ? (
+                <div className="flex gap-2">
+                  {subscribers?.includes(userUid) ? (
                     <Button
                       onClick={() => navigate.push(`/player/${courseId}`)}
                       variant="outline"
@@ -109,15 +103,22 @@ const Course = ({ params }) => {
                       <CirclePlay size={18} className="mr-2" /> Start watching
                     </Button>
                   ) : (
-                    <Button
-                      onClick={() => subscribeFn(courseId)}
-                      variant="outline"
-                      className="w-full text-black"
-                    >
-                      Subscribe
-                    </Button>
+                    <></>
                   )}
-                </>
+                  <Button
+                    onClick={() => subscribeFn(courseId)}
+                    variant="outline"
+                    className={`w-full text-black  ${
+                      subscribers?.includes(userUid)
+                        ? "bg-red-500 text-white border-none hover:bg-red-700 hover:text-white"
+                        : ""
+                    }`}
+                  >
+                    {subscribers?.includes(userUid)
+                      ? "Unsubscribe"
+                      : "Subscribe"}
+                  </Button>
+                </div>
               ) : (
                 <LoginModal />
               )}

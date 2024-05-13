@@ -27,14 +27,9 @@ const SideLinks = () => {
       path: "/my-courses",
     },
     {
-      label: "Saved",
+      label: "Saveds",
       icon: <Bookmark size={18} className="mr-2" />,
-      path: "/",
-    },
-    {
-      label: "Authors",
-      icon: <ContactRound size={18} className="mr-2" />,
-      path: "/",
+      path: "/saved-courses",
     },
   ];
   return (

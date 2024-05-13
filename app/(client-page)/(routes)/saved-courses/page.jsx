@@ -1,29 +1,33 @@
 "use client";
 import AllCoursesSkeleton from "@/app/(skeletons)/AllCoursesSkeleton";
 import { auth, db } from "@/app/firebaseConfig";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { collection } from "firebase/firestore";
-import { BookOpen, Heart, HeartIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import SavedBtn from "./SavedBtn";
+import NotDataBlock from "../../(components)/NotDataBlock";
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
+import Image from "next/image";
+import { BookOpen } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import SavedBtn from "../../(components)/SavedBtn";
 
-const AllCourses = () => {
-  const userUid = auth?.currentUser?.uid;
-  const [courses, loadin, error] = useCollectionData(collection(db, "courses"));
-  const activeCourses = courses?.filter(
-    (course) => course.status === "published"
-  );
+const SavedCourses = () => {
+  const [courses, loadin] = useCollectionData(collection(db, "courses"));
+  const uid = auth?.currentUser?.uid;
+
+  const savedCourses = courses?.filter((course) => course.saveds.includes(uid));
+
   if (loadin) {
     return <AllCoursesSkeleton />;
   }
 
+  if (savedCourses?.length === 0) {
+    return <NotDataBlock />;
+  }
   return (
     <div className="grid grid-cols-4 gap-4 scroll-ms p-5">
-      {activeCourses?.map((course, i) => (
+      {savedCourses?.map((course, i) => (
         <div key={course.id} className="min-h-[40vh]">
           <Card className="border-[1px] border-[--border ] shadow-none overflow-hidden rounded-lg h-full">
             <div className="w-full h-[22vh] relative">
@@ -72,4 +76,4 @@ const AllCourses = () => {
   );
 };
 
-export default AllCourses;
+export default SavedCourses;
